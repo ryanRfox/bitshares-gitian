@@ -1,0 +1,29 @@
+name: macos gitian
+
+on: [push]
+
+jobs:
+  macOS
+    runs-on: macOS-latest
+  
+    steps: 
+    - name: GitHub
+      run: |
+           git clone https://github.com/ryanRfox/bitshares-gitian.git
+           cd bitshares-gitian
+           git submodule update --init --recursive
+           echo $PWD
+           ls
+    - name: brew
+      run: |
+           brew cleanup
+           brew doctor
+           brew update
+    - name: ruby
+      run: |
+           brew install ruby coreutils
+           export PATH=$PATH:/opt/local/libexec/gnubin
+    - name: virtualbox
+      run: |
+           brew cask install virtualbox
+           echo $PATH
